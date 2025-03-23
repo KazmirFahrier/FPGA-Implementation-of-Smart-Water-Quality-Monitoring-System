@@ -5,7 +5,7 @@ int values[] = {0,0,0,0,0,0,0,0,0};
 
 void setup() {
   Serial.begin(9600); // initialize serial communication
-  // put your setup code here, to run once:
+ 
   pinMode(2, OUTPUT);
   pinMode(3, OUTPUT);
   pinMode(4, OUTPUT);
@@ -43,17 +43,17 @@ int tempLevel = analogRead(lm35tempin);
  Serial.print(voltage); Serial.println(" volts");
  
  // now print out the temperature
- float temperatureC = (voltage - 0.5) * 100 ;  //converting from 10 mv per degree wit 500 mV offset
-                                               //to degrees ((voltage - 500mV) times 100)
+ float temperatureC = voltage  * 100 ;  
+                                               
  Serial.print(temperatureC); Serial.println(" degrees C");
  
 
   Serial.println(tempLevel);
-  if(temperatureC> 120) values[8]=1;
+  if(temperatureC> 30) values[8]=1;
   else values[8]=0;
   Serial.println(values[8]);
   
-  // put your main code here, to run repeatedly:
+ 
   for (int i = 0; i < 8; i++) {
     if (i<4) values[i]=bitRead(waterLevel, i);
     else values[i]= bitRead(mq7Value, (i-4));
