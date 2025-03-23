@@ -23,7 +23,7 @@ The sensor values are captured and processed using both FPGA and Arduino platfor
     - This value `8` is sent to the FPGA in 4-bit binary format (`1000`).
 - **Display:** The corresponding percentage (e.g., 80%) is shown on a 7-segment display.
 - **LED Indicator:** 
-  - If the water level is more than 50% (i.e., value > 4), the LED turns ON.
+  - If the water level is more than 50% (i.e., value > 5), the LED turns ON.
   - Otherwise, it remains OFF.
 
 ### 2. Carbon Monoxide Gas Sensor
