@@ -17,14 +17,13 @@ The sensor values are captured and processed using both FPGA and Arduino platfor
 ### 1. Water Level Sensor
 
 - **Sensor Output Range:** 0 to 800
-- **Conversion:** The analog value is converted into a percentage by dividing the output by 800.
-- **Discretization:** Due to a shortage of available pins on the Arduino, we apply 10% discretization.  
-  For example:
-  - If the water level is 85%, it is interpreted as 80%.
-  - This value is then sent as a binary number (e.g., 8) to the FPGA.
-- **Display:** The water level percentage is shown on a 7-segment display.
+- **Discretization:** Due to a shortage of available pins on the Arduino, we divide the sensor value by 80 to map the water level into 10 discrete levels (0 to 10), each representing 10% increments.
+  - For example:
+    - A sensor value of `680` → `680 / 80 = 8.5` → discretized to `8` (i.e., 80%)
+    - This value `8` is sent to the FPGA in 4-bit binary format (`1000`).
+- **Display:** The corresponding percentage (e.g., 80%) is shown on a 7-segment display.
 - **LED Indicator:** 
-  - If the water level crosses 50%, the LED turns ON.
+  - If the water level is more than 50% (i.e., value > 4), the LED turns ON.
   - Otherwise, it remains OFF.
 
 ### 2. Carbon Monoxide Gas Sensor
