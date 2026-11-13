@@ -17,7 +17,7 @@ The sensor values are captured and processed using both FPGA and Arduino platfor
 ### 1. Water Level Sensor
 
 - **Sensor Output Range:** 0 to 800
-- **Discretization:** Due to a shortage of available pins on the Arduino, we divide the sensor value by 80 to map the water level into 10 discrete levels (0 to 10), each representing 10% increments.
+- **Discretization:** Due to a shortage of available pins on the Arduino, we divide the sensor value by 80 to map the water level into 10 discrete levels (0 to 9), each representing 10% increments. Readings above the top level are held at 9, the highest digit the 7-segment display can show.
   - For example:
     - A sensor value of `680` → `680 / 80 = 8.5` → discretized to `8` (i.e., 80%)
     - This value `8` is sent to the FPGA in 4-bit binary format (`1000`).
@@ -33,7 +33,7 @@ The sensor values are captured and processed using both FPGA and Arduino platfor
   - Level 1 = 50 ppm
   - Level 2 = 100 ppm  
   - ...
-  - Level 10 = 500 ppm
+  - Level 9 = 450 ppm and above (the level is held at 9, the highest digit the display can show)
 - **Binary Conversion:** The output level is converted into a 4-bit binary number and sent to the FPGA.
 - **Display:** The gas level is shown on a 7-segment display.
 - **LED Indicator:** 

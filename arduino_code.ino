@@ -21,6 +21,9 @@ void loop() {
   int waterLevel = analogRead(waterLevelPin); // Read the analog water level value
   Serial.println(waterLevel);
   waterLevel = (waterLevel*10)/800;
+  // Each level goes to the FPGA as 4 bits and the 7-segment decoder only knows 0 to 9.
+  // Without the clamp a full-scale reading reaches 10 or more and the display shows 0.
+  waterLevel = constrain(waterLevel, 0, 9);
 
   
  Serial.print("Water Level: ");
@@ -30,6 +33,8 @@ void loop() {
   int mq7Value = analogRead(mq7Pin);
   Serial.println(mq7Value);
   mq7Value = (mq7Value*10)/500;
+  // The ADC can reach 1023, which maps to 20 and does not fit in 4 bits.
+  mq7Value = constrain(mq7Value, 0, 9);
 
   Serial.print("CO level: ");
   Serial.print(mq7Value);
